@@ -107,6 +107,9 @@ public class HttpServer {
                 "              </div>\n" +
                 "            <center><button id=\"btnC\" type=\"submit\" class=\"btn btn-primary\" >Consultar</button></center>\n" +
                 "        </form>\n" +
+                "        <div id=\"div\">\n" +
+                "\n" +
+                "        </div>\n" +
                 "    </center>\n" +
                 "</body>\n" +
                 "<script >\n" +
@@ -116,6 +119,7 @@ public class HttpServer {
                 "    const input = document.getElementById(\"ciudad\");\n" +
                 "    const form = document.getElementById(\"form\");\n" +
                 "    const url = 'https://arep-parcial-ivan.herokuapp.com/Consulta?q=';\n" +
+                "    //const url = 'http://localhost:35000/Consulta?q=';\n" +
                 "\n" +
                 "    var input_value=\"\";\n" +
                 "\n" +
@@ -124,14 +128,24 @@ public class HttpServer {
                 "    const submit = async (event) => {\n" +
                 "        event.preventDefault();\n" +
                 "        console.log(input_value);\n" +
+                "        console.log(\"paseeeeeeee\");\n" +
                 "        const response = await fetch(`${url}${input_value}`, {\n" +
                 "            method: 'GET',\n" +
-                "            headers: new Headers({\n" +
+                "            headers: {\n" +
                 "                'Content-Type': 'application/json',\n" +
-                "                'Access-Control-Allow-Origin': '*',\n" +
-                "            })\n" +
+                "            }\n" +
                 "        });\n" +
-                "        return response.json();\n" +
+                "        console.log(\"paseeeeeeee\");\n" +
+                "        console.log(response);\n" +
+                "        console.log(\"paseeeeeeee\");\n" +
+                "        updateHTML(response.json());\n" +
+                "    }\n" +
+                "\n" +
+                "    const updateHTML = (json)=>{\n" +
+                "        const div = document.getElementById(\"div\");\n" +
+                "        const j = JSON.stringify(json);\n" +
+                "        document.getElementById(\"div\").innerHTML = `<h1>Tu respuesta es:</h1>${j}`\n" +
+                "        console.log(div);\n" +
                 "    }\n" +
                 "\n" +
                 "    const updateValue = (event) =>{\n" +
