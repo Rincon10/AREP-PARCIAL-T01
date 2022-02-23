@@ -130,25 +130,31 @@ public class HttpServer {
                 new InputStreamReader(
                         clientSocket.getInputStream()));
         String inputLine, outputLine;
-        ArrayList<String> request = new ArrayList<>();
+        String file = "";
+        boolean fstLine = true;
 
         while ((inputLine = in.readLine()) != null) {
             System.out.println("Received: " + inputLine);
-            request.add(inputLine);
+            if (fstLine){
+                file = inputLine;
+                fstLine = false;
+                break;
+            }
+
             if (!in.ready()) {
                 break;
             }
         }
 
         // Example: 0= "GET /public/css/index.css HTPP/1.1"
-        String file = request.get(0).split(" ")[1];
-        resourceURI = new URI(file);
-        if (file.startsWith("/Clima/")) {
+        String path = file.split(" ")[1];
+        resourceURI = new URI(path);
+        if (path.startsWith("/Clima/")) {
             outputLine = outputLine = getDefaultHTML();
             ;
-        } else if (file.startsWith("/Consulta")) {
+        } else if (path.startsWith("/Consulta")) {
             //this petition works only with the paramas lat and lon
-            String[] petition = file.replace("/Consultas?", "").split("&");
+            String[] petition = path.replace("/Consultas?", "").split("&");
             for (String value : petition) {
                 String[] param = value.split("=");
                 if (param[0].contains("q")) {
