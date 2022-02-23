@@ -135,7 +135,7 @@ public class HttpServer {
 
         while ((inputLine = in.readLine()) != null) {
             System.out.println("Received: " + inputLine);
-            if (fstLine){
+            if (fstLine) {
                 file = inputLine;
                 fstLine = false;
                 break;
@@ -147,29 +147,32 @@ public class HttpServer {
         }
 
         // Example: 0= "GET /public/css/index.css HTPP/1.1"
-        String path = file.split(" ")[1];
-        resourceURI = new URI(path);
-        if (path.startsWith("/Clima/")) {
-            outputLine = outputLine = getDefaultHTML();
-            ;
-        } else if (path.startsWith("/Consulta")) {
-            //this petition works only with the paramas lat and lon
-            String[] petition = path.replace("/Consultas?", "").split("&");
-            for (String value : petition) {
-                String[] param = value.split("=");
-                if (param[0].contains("q")) {
-                    this.city = param[1];
-                    break;
+        if (file.split("").length >= 1) {
+            String path = file.split(" ")[1];
+            resourceURI = new URI(path);
+            if (path.startsWith("/Clima/")) {
+                outputLine = outputLine = getDefaultHTML();
+                ;
+            } else if (path.startsWith("/Consulta")) {
+                //this petition works only with the paramas lat and lon
+                String[] petition = path.replace("/Consultas?", "").split("&");
+                for (String value : petition) {
+                    String[] param = value.split("=");
+                    if (param[0].contains("q")) {
+                        this.city = param[1];
+                        break;
+                    }
                 }
+                outputLine = "HTTP/1.1 200 OK \r\n"
+                        + "Content-Type: " + HttpServer.typesMap.get("json") + "\r\n"
+                        + "\r\n"
+                        + HttpConnectionService.startConnection(city);
+            } else {
+                outputLine = notFound();
             }
-            outputLine = "HTTP/1.1 200 OK \r\n"
-                    + "Content-Type: " + HttpServer.typesMap.get("json") + "\r\n"
-                    + "\r\n"
-                    + HttpConnectionService.startConnection(city);
-        } else {
-            outputLine = notFound();
+            out.println(outputLine);
         }
-        out.println(outputLine);
+
     }
 
     /**
