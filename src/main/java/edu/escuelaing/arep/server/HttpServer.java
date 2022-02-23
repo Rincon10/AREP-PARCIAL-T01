@@ -150,7 +150,7 @@ public class HttpServer {
         if (file.split("").length >= 2) {
             String path = file.split(" ")[1];
             resourceURI = new URI(path);
-            if (path.contains("/Clima/")) {
+            if (path.contains("/Clima")) {
                 outputLine = outputLine = getDefaultHTML();
                 ;
             } else if (path.startsWith("/Consulta")) {
