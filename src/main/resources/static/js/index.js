@@ -3,7 +3,8 @@
 
 const input = document.getElementById("ciudad");
 const form = document.getElementById("form");
-const url = 'http://localhost:35000/Consulta?q=';
+const url = 'https://arep-parcial-ivan.herokuapp.com/Consulta?q=';
+//const url = 'http://localhost:35000/Consulta?q=';
 
 var input_value="";
 
@@ -12,14 +13,25 @@ var input_value="";
 const submit = async (event) => {
     event.preventDefault();
     console.log(input_value);
+    console.log("paseeeeeeee");
     const response = await fetch(`${url}${input_value}`, {
         method: 'GET',
-        headers: new Headers({
+        headers: {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-        })
+        }
     });
-    return response.json();
+    console.log("paseeeeeeee");
+    console.log(response);
+    console.log(response.json());
+    updateHTML(response.json());
+}
+
+const updateHTML = (json)=>{
+    const div = document.getElementById("div");
+    const j = JSON.stringify(json);
+    console.log(j);
+    document.getElementById("div").innerHTML = `<h1>Tu respuesta es:</h1>${j}`
+    console.log(div);
 }
 
 const updateValue = (event) =>{

@@ -4,38 +4,38 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Formulario</title>
 </head>
 <body>
-    <center>
-        <h1>Ingresa el nombre de ciudad a consultar</h1>
-        <form id="form" action="" method="POST">
-            <div class="form-group col-md-6">
-                <label> Ciudad</label>
-                <input id="ciudad" type="text" class="form-control" id="inputEmail4" placeholder="nombre ciudad">
-              </div>
-            <center><button id="btnC" type="submit" class="btn btn-primary" >Consultar</button></center>
-        </form>
-        <div id="div">
-
+<center>
+    <h1>Ingresa el nombre de ciudad a consultar</h1>
+    <form id="form" action="" method="POST">
+        <div class="form-group col-md-6">
+            <label> Ciudad</label>
+            <input id="ciudad" type="text" class="form-control" id="inputEmail4" placeholder="nombre ciudad">
         </div>
-    </center>
+        <center>
+            <button id="btnC" type="submit" class="btn btn-primary">Consultar</button>
+        </center>
+    </form>
+    <div id="div">
+
+    </div>
+</center>
 </body>
-<script >
+<script>
     //========================variables========================
-
-
     const input = document.getElementById("ciudad");
     const form = document.getElementById("form");
     const url = 'https://arep-parcial-ivan.herokuapp.com/Consulta?q=';
     //const url = 'http://localhost:35000/Consulta?q=';
 
-    var input_value="";
+    var input_value = "";
 
     //========================functions========================
-
     const submit = async (event) => {
         event.preventDefault();
         console.log(input_value);
@@ -48,19 +48,21 @@
         });
         console.log("paseeeeeeee");
         console.log(response);
-        console.log("paseeeeeeee");
+        console.log(response.json());
         updateHTML(response.json());
     }
 
-    const updateHTML = (json)=>{
+    const updateHTML = (json) => {
+        console.log(json,"param")
         const div = document.getElementById("div");
         const j = JSON.stringify(json);
+        console.log(j);
         document.getElementById("div").innerHTML = `<h1>Tu respuesta es:</h1>${j}`
         console.log(div);
     }
 
-    const updateValue = (event) =>{
-        const { value } = event.target;
+    const updateValue = (event) => {
+        const {value} = event.target;
         input_value = value;
     }
 

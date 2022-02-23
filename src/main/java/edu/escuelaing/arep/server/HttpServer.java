@@ -93,38 +93,38 @@ public class HttpServer {
                 "    <meta charset=\"UTF-8\">\n" +
                 "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
                 "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
-                "    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css\" integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n" +
+                "    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css\"\n" +
+                "          integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n" +
                 "\n" +
                 "    <title>Formulario</title>\n" +
                 "</head>\n" +
                 "<body>\n" +
-                "    <center>\n" +
-                "        <h1>Ingresa el nombre de ciudad a consultar</h1>\n" +
-                "        <form id=\"form\" action=\"\" method=\"POST\">\n" +
-                "            <div class=\"form-group col-md-6\">\n" +
-                "                <label> Ciudad</label>\n" +
-                "                <input id=\"ciudad\" type=\"text\" class=\"form-control\" id=\"inputEmail4\" placeholder=\"nombre ciudad\">\n" +
-                "              </div>\n" +
-                "            <center><button id=\"btnC\" type=\"submit\" class=\"btn btn-primary\" >Consultar</button></center>\n" +
-                "        </form>\n" +
-                "        <div id=\"div\">\n" +
-                "\n" +
+                "<center>\n" +
+                "    <h1>Ingresa el nombre de ciudad a consultar</h1>\n" +
+                "    <form id=\"form\" action=\"\" method=\"POST\">\n" +
+                "        <div class=\"form-group col-md-6\">\n" +
+                "            <label> Ciudad</label>\n" +
+                "            <input id=\"ciudad\" type=\"text\" class=\"form-control\" id=\"inputEmail4\" placeholder=\"nombre ciudad\">\n" +
                 "        </div>\n" +
-                "    </center>\n" +
+                "        <center>\n" +
+                "            <button id=\"btnC\" type=\"submit\" class=\"btn btn-primary\">Consultar</button>\n" +
+                "        </center>\n" +
+                "    </form>\n" +
+                "    <div id=\"div\">\n" +
+                "\n" +
+                "    </div>\n" +
+                "</center>\n" +
                 "</body>\n" +
-                "<script >\n" +
+                "<script>\n" +
                 "    //========================variables========================\n" +
-                "\n" +
-                "\n" +
                 "    const input = document.getElementById(\"ciudad\");\n" +
                 "    const form = document.getElementById(\"form\");\n" +
                 "    const url = 'https://arep-parcial-ivan.herokuapp.com/Consulta?q=';\n" +
                 "    //const url = 'http://localhost:35000/Consulta?q=';\n" +
                 "\n" +
-                "    var input_value=\"\";\n" +
+                "    var input_value = \"\";\n" +
                 "\n" +
                 "    //========================functions========================\n" +
-                "\n" +
                 "    const submit = async (event) => {\n" +
                 "        event.preventDefault();\n" +
                 "        console.log(input_value);\n" +
@@ -137,19 +137,21 @@ public class HttpServer {
                 "        });\n" +
                 "        console.log(\"paseeeeeeee\");\n" +
                 "        console.log(response);\n" +
-                "        console.log(\"paseeeeeeee\");\n" +
+                "        console.log(response.json());\n" +
                 "        updateHTML(response.json());\n" +
                 "    }\n" +
                 "\n" +
-                "    const updateHTML = (json)=>{\n" +
+                "    const updateHTML = (json) => {\n" +
+                "        console.log(json,\"param\")\n" +
                 "        const div = document.getElementById(\"div\");\n" +
                 "        const j = JSON.stringify(json);\n" +
+                "        console.log(j);\n" +
                 "        document.getElementById(\"div\").innerHTML = `<h1>Tu respuesta es:</h1>${j}`\n" +
                 "        console.log(div);\n" +
                 "    }\n" +
                 "\n" +
-                "    const updateValue = (event) =>{\n" +
-                "        const { value } = event.target;\n" +
+                "    const updateValue = (event) => {\n" +
+                "        const {value} = event.target;\n" +
                 "        input_value = value;\n" +
                 "    }\n" +
                 "\n" +
