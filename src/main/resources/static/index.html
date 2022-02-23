@@ -39,13 +39,14 @@
     const submit = async (event) => {
         event.preventDefault();
         console.log(input_value);
+        console.log("paseeeeeeee");
         const response = await fetch(`${url}${input_value}`, {
             method: 'GET',
-            headers: new Headers({
+            headers: {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            })
+            }
         });
+        console.log("paseeeeeeee");
         console.log(response);
         console.log("paseeeeeeee");
         updateHTML(response.json());
