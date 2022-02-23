@@ -119,8 +119,6 @@ public class HttpServer {
             }
         }
 
-        String file;
-
         outputLine = getDefaultHTML();
         // Example: 0= "GET /public/css/index.css HTPP/1.1"
         //file = request.get(0).split(" ")[1];
