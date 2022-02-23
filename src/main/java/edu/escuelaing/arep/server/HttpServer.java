@@ -120,6 +120,8 @@ public class HttpServer {
         }
 
         String file;
+
+        outputLine = getDefaultHTML();
         // Example: 0= "GET /public/css/index.css HTPP/1.1"
         //file = request.get(0).split(" ")[1];
         //resourceURI = new URI(file);
@@ -150,7 +152,7 @@ public class HttpServer {
 //            String[] controller = file.split("/");
 ////            outputLine = invokeService(controller[1]);
 //        }
-////        out.println(outputLine);
+        out.println(outputLine);
     }
 
 //    private Method getMethod(String name) {
