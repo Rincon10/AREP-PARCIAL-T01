@@ -93,9 +93,9 @@ public class HttpConnectionService implements IHttpConnectionService {
     }
 
 
-    public static JSONObject startConnection(String cityName) {
+    public static JSONObject startConnection(String cityName) throws IOException {
         service = new HttpConnectionService(cityName);
-        return service.startConnection(cityName);
+        return service.startConnection();
     }
 
     /**

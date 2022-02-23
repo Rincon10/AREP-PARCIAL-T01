@@ -1,6 +1,7 @@
 package edu.escuelaing.arep.server;
 
 
+import edu.escuelaing.arep.services.impl.HttpConnectionService;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -25,8 +26,7 @@ public class HttpServer {
     private PrintWriter out;
     private BufferedReader in;
     private URI resourceURI;
-    private int lat;
-    private int lon;
+    private String city;
     public static OutputStream outputStream;
 
     public final static Map<String, String> typesMap = new HashMap<String, String>();
@@ -56,6 +56,27 @@ public class HttpServer {
         return 35000;
     }
 
+    public static String notFound() {
+        return "HTTP/1.1 200 OK\r\n"
+                + "Content-Type: text/html\r\n"
+                + "\r\n"
+                + "<!DOCTYPE html>"
+                + "<html>"
+                + "<head>"
+                + "<meta charset=\"UTF-8\">"
+                + "<title>Not found</title>\n"
+                + "</head>"
+                + "<body>"
+                + "<div>"
+                + "<h1>404 Error</h1>"
+                + "</div>"
+                + "<h2>Oops! This Page Could Not Be Found</h2>"
+                + "<p>"
+                + "Sorry but the page you are looking for does not exist or have been removed. name changed or is temporarily unavailable"
+                + "</p>"
+                + "</body>"
+                + "</html>";
+    }
 
     /**
      * Method that return a default html page
@@ -119,53 +140,31 @@ public class HttpServer {
             }
         }
 
-        outputLine = getDefaultHTML();
         // Example: 0= "GET /public/css/index.css HTPP/1.1"
-        //file = request.get(0).split(" ")[1];
-        //resourceURI = new URI(file);
-//        if (file.startsWith("/Clima/")) {
-//            outputLine = invokeService("mainPage");
-//        } else if (file.startsWith("/Consultas")) {
-//            //this petition works only with the paramas lat and lon
-//            String[] petition = file.replace("/Consultas?", "").split("&");
-//            for (String value : petition) {
-//                String[] param = value.split("=");
-//                if (param[0].equals("lon")) {
-//                    lon = new Integer(param[1]);
-//                }
-//                if (param[0].equals("lat")) {
-//                    lat = new Integer(param[1]);
-//                }
-//            }
-//
-////            Method m = getMethod("query");
-//
-//            outputLine = "HTTP/1.1 200 OK \r\n"
-//                    + "Content-Type: " + HttpServer.typesMap.get("json") + "\r\n"
-//                    + "\r\n"
-//                    + m.invoke(null, lat, lon);
-//        } else if (file.length() == 1) {
-//            outputLine = getDefaultHTML();
-//        } else {
-//            String[] controller = file.split("/");
-////            outputLine = invokeService(controller[1]);
-//        }
+        String file = request.get(0).split(" ")[1];
+        resourceURI = new URI(file);
+        if (file.startsWith("/Clima/")) {
+            outputLine = outputLine = getDefaultHTML();
+            ;
+        } else if (file.startsWith("/Consulta")) {
+            //this petition works only with the paramas lat and lon
+            String[] petition = file.replace("/Consultas?", "").split("&");
+            for (String value : petition) {
+                String[] param = value.split("=");
+                if (param[0].contains("q")) {
+                    this.city = param[1];
+                    break;
+                }
+            }
+            outputLine = "HTTP/1.1 200 OK \r\n"
+                    + "Content-Type: " + HttpServer.typesMap.get("json") + "\r\n"
+                    + "\r\n"
+                    + HttpConnectionService.startConnection(city);
+        } else {
+            outputLine = notFound();
+        }
         out.println(outputLine);
     }
-
-//    private Method getMethod(String name) {
-//        return MainServer.getInstance().getMethod(name);
-//    }
-
-    /**
-     * Method that invoke a specific method from a class
-     *
-     * @param file, String that represents the name service stored on our Framework
-     * @return String, That represents the execution of the method
-     */
-//    private String invokeService(String file) {
-//        return MainServer.getInstance().invokeService(file);
-//    }
 
     /**
      * Method that close the connection between the client and the server
