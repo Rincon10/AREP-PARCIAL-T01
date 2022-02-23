@@ -18,6 +18,9 @@
               </div>
             <center><button id="btnC" type="submit" class="btn btn-primary" >Consultar</button></center>
         </form>
+        <div id="div">
+
+        </div>
     </center>
 </body>
 <script >
@@ -43,7 +46,13 @@
                 'Access-Control-Allow-Origin': '*',
             })
         });
-        return response.json();
+        updateHTML(response.json());
+    }
+
+    const updateHTML = (json)=>{
+        const div = document.getElementById("div");
+        const j = JSON.stringify(json);
+        div.innerHTML = `<h1>Tu respuesta es:</h1>${j}`
     }
 
     const updateValue = (event) =>{
