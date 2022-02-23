@@ -87,16 +87,70 @@ public class HttpServer {
         return "HTTP/1.1 200 OK\r\n"
                 + "Content-Type: text/html\r\n"
                 + "\r\n"
-                + "<!DOCTYPE html>"
-                + "<html>"
-                + "<head>"
-                + "<meta charset=\"UTF-8\">"
-                + "<title>Default Page</title>\n"
-                + "</head>"
-                + "<body>"
-                + "<h1>Default Page</h1>"
-                + "</body>"
-                + "</html>";
+                + "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "    <meta charset=\"UTF-8\">\n" +
+                "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                "    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css\" integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n" +
+                "\n" +
+                "    <title>Formulario</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "    <center>\n" +
+                "        <h1>Ingresa el nombre de ciudad a consultar</h1>\n" +
+                "        <form id=\"form\" action=\"\" method=\"POST\">\n" +
+                "            <div class=\"form-group col-md-6\">\n" +
+                "                <label> Ciudad</label>\n" +
+                "                <input id=\"ciudad\" type=\"text\" class=\"form-control\" id=\"inputEmail4\" placeholder=\"nombre ciudad\">\n" +
+                "              </div>\n" +
+                "            <center><button id=\"btnC\" type=\"submit\" class=\"btn btn-primary\" >Consultar</button></center>\n" +
+                "        </form>\n" +
+                "    </center>\n" +
+                "</body>\n" +
+                "<script >\n" +
+                "    //========================variables========================\n" +
+                "\n" +
+                "\n" +
+                "    const input = document.getElementById(\"ciudad\");\n" +
+                "    const form = document.getElementById(\"form\");\n" +
+                "    const url = 'https://arep-parcial-ivan.herokuapp.com/Consulta?q=';\n" +
+                "\n" +
+                "    var input_value=\"\";\n" +
+                "\n" +
+                "    //========================functions========================\n" +
+                "\n" +
+                "    const submit = async (event) => {\n" +
+                "        event.preventDefault();\n" +
+                "        console.log(input_value);\n" +
+                "        const response = await fetch(`${url}${input_value}`, {\n" +
+                "            method: 'GET',\n" +
+                "            headers: new Headers({\n" +
+                "                'Content-Type': 'application/json',\n" +
+                "                'Access-Control-Allow-Origin': '*',\n" +
+                "            })\n" +
+                "        });\n" +
+                "        return response.json();\n" +
+                "    }\n" +
+                "\n" +
+                "    const updateValue = (event) =>{\n" +
+                "        const { value } = event.target;\n" +
+                "        input_value = value;\n" +
+                "    }\n" +
+                "\n" +
+                "    //========================EventsListeners==================\n" +
+                "\n" +
+                "    setEventsListeners();\n" +
+                "\n" +
+                "    // Function that set all the events of the DOM\n" +
+                "    function setEventsListeners() {\n" +
+                "        input?.addEventListener('change', updateValue);\n" +
+                "        form?.addEventListener('submit', submit);\n" +
+                "    }\n" +
+                "\n" +
+                "</script>\n" +
+                "</html>";
     }
 
     /**

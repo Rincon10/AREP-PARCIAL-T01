@@ -9,6 +9,6 @@ public class Constants {
 
     public static String[][] TYPES = {
             {"html", "text/html"},
-            {"js", "text/javascript"},
+            {"static/js", "text/javascript"},
             {"json", "application/json"}};
 }
