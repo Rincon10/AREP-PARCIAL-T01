@@ -47,13 +47,14 @@
             })
         });
         console.log(response);
+        console.log("paseeeeeeee");
         updateHTML(response.json());
     }
 
     const updateHTML = (json)=>{
         const div = document.getElementById("div");
         const j = JSON.stringify(json);
-        div.innerHTML = `<h1>Tu respuesta es:</h1>${j}`
+        document.getElementById("div").innerHTML = `<h1>Tu respuesta es:</h1>${j}`
         console.log(div);
     }
 
