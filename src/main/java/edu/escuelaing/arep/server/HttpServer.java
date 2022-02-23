@@ -173,6 +173,11 @@ public class HttpServer {
             out.println(outputLine);
         }
 
+        else {
+            outputLine = outputLine = getDefaultHTML();
+            out.println(outputLine);
+        }
+
     }
 
     /**
