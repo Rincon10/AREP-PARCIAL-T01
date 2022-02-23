@@ -121,8 +121,8 @@ public class HttpServer {
 
         String file;
         // Example: 0= "GET /public/css/index.css HTPP/1.1"
-        file = request.get(0).split(" ")[1];
-        resourceURI = new URI(file);
+        //file = request.get(0).split(" ")[1];
+        //resourceURI = new URI(file);
 //        if (file.startsWith("/Clima/")) {
 //            outputLine = invokeService("mainPage");
 //        } else if (file.startsWith("/Consultas")) {
