@@ -137,8 +137,10 @@ public class HttpServer {
                 "        });\n" +
                 "        console.log(\"paseeeeeeee\");\n" +
                 "        console.log(response);\n" +
-                "        console.log(response.json());\n" +
-                "        updateHTML(response.json());\n" +
+                "\n" +
+                "        const data = await response.then( r=> r.json());\n" +
+                "        console.log(data);\n" +
+                "        updateHTML(data);\n" +
                 "    }\n" +
                 "\n" +
                 "    const updateHTML = (json) => {\n" +
