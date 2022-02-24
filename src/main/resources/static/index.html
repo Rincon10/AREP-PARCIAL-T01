@@ -36,22 +36,29 @@
     var input_value = "";
 
     //========================functions========================
+    const apiClient = (() => {
+        return {
+            getCity: async () => {
+                const response = await fetch(`${url}${input_value}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                return response.json();
+            },
+        };
+    })();
+
     const submit = async (event) => {
         event.preventDefault();
         console.log(input_value);
         console.log("paseeeeeeee");
-        const response = await fetch(`${url}${input_value}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
+        apiClient.getCity().then( response =>{
+            console.log(response,"response");
+            updateHTML(response);
         });
-        console.log("paseeeeeeee");
-        console.log(response);
 
-        const data = await response.then( r=> r.json());
-        console.log(data);
-        updateHTML(data);
     }
 
     const updateHTML = (json) => {
