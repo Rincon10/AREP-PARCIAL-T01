@@ -125,22 +125,29 @@ public class HttpServer {
                 "    var input_value = \"\";\n" +
                 "\n" +
                 "    //========================functions========================\n" +
+                "    const apiClient = (() => {\n" +
+                "        return {\n" +
+                "            getCity: async () => {\n" +
+                "                const response = await fetch(`${url}${input_value}`, {\n" +
+                "                    method: 'GET',\n" +
+                "                    headers: {\n" +
+                "                        'Content-Type': 'application/json',\n" +
+                "                    }\n" +
+                "                })\n" +
+                "                return response.json();\n" +
+                "            },\n" +
+                "        };\n" +
+                "    })();\n" +
+                "\n" +
                 "    const submit = async (event) => {\n" +
                 "        event.preventDefault();\n" +
                 "        console.log(input_value);\n" +
                 "        console.log(\"paseeeeeeee\");\n" +
-                "        const response = await fetch(`${url}${input_value}`, {\n" +
-                "            method: 'GET',\n" +
-                "            headers: {\n" +
-                "                'Content-Type': 'application/json',\n" +
-                "            }\n" +
+                "        apiClient.getCity().then( response =>{\n" +
+                "            console.log(response,\"response\");\n" +
+                "            updateHTML(response);\n" +
                 "        });\n" +
-                "        console.log(\"paseeeeeeee\");\n" +
-                "        console.log(response);\n" +
                 "\n" +
-                "        const data = await response.then( r=> r.json());\n" +
-                "        console.log(data);\n" +
-                "        updateHTML(data);\n" +
                 "    }\n" +
                 "\n" +
                 "    const updateHTML = (json) => {\n" +
