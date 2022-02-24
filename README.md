@@ -28,7 +28,11 @@ https://arep-parcial-ivan.herokuapp.com/Clima
 ```
 https://arep-parcial-ivan.herokuapp.com/Consulta?q=london
 ```
+NOTA: **poner nombres validos de ciudades, al ser un entregable NO acepta ciudades no validas**
+
 <img src="https://github.com/Rincon10/AREP-PARCIAL-T01/blob/master/resources/img/query.jpg" />
+
+<img src="https://github.com/Rincon10/AREP-PARCIAL-T01/blob/master/resources/img/medellin.jpg" />
 
 * Cualquier url no válido, retornara una página 404
 ```
